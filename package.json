@@ -1,0 +1,13 @@
+{
+  "name"         : "LearnScraper",
+  "version"      : "0.0.1",
+  "description"  : "Scrape learn.sparkfun.com",
+  "main"         : "LearnScraper.js",
+  "author"       : "me",
+  "dependencies" : {
+    "express"    : "latest",
+    "request"    : "latest",
+    "cheerio"    : "latest",
+    "csv"   : "latest"  
+  }
+}
