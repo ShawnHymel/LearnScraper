@@ -5,22 +5,29 @@ var csv = require('csv');
 
 url = "https://learn.sparkfun.com/tutorials/blynk-board-washerdryer-alarm"
 
-var parser = csv.parse();
+var output = [];
+var parser = csv.parse({delimiter: ";"});
 
-csv()
-.from.string(
-  '#Welcome\n"1","2","3","4"\n"a","b","c","d"',
-  {comment: '#'} )
-.to.array( function(data){
-  console.log(data)
-} );
-/*
-var parser = parse({delimiter: ';'}, function(err, data){
-  console.log(data);
+parser.on('readable', function() {
+    while(record = parser.read()) {
+        output.push(record);
+    }
 });
-*/
 
-fs.createReadStream(__dirname+'/learn_analytics_2015.csv').pipe(parser);
+parser.on('error', function(err) {
+    console.log(err.message);
+});
+
+parser.on('finish', function() {
+    console.log(output);
+});
+
+//***TEST***
+//parser.write("root:x:0:0:root:/root:/bin/bash\n");
+//parser.write("someone:x:1022:1022:a funny cat:/home/someone:/bin/bash\n");
+//parser.end();
+
+fs.createReadStream(__dirname + "/learn_analytics_2015a.csv").pipe(parser);
 
 // Get page
 /*request(url, function(err, res, html) {
